@@ -86,7 +86,7 @@ void function ServerChatCommand_AntiAFK( entity player, array<string> args )
     SSOM_SetAntiAFKEnabled( newStatus )
     
     string statusMessage = newStatus ? "开启" : "关闭"
-    SSOM_ChatServerBroadcast( "反挂机已" + statusMessage + "！！！" )
+    SSOM_ChatServerBroadcast( "已" + statusMessage + "反挂机！！！" )
 }
 
 void function SSOM_SetAntiAFKEnabled( bool enabled )
