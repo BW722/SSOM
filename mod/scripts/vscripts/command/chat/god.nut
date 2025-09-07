@@ -16,36 +16,36 @@ void function ServerChatCommand_God(entity player, array<string> args)
         return
     }
 
-    array<entity> subjects = []
+    array<entity> targets = []
     if(args.len() != 1)
     {
-        subjects.append(player)
+        targets.append(player)
     }
 
     if(args.len() == 1)
     {
         if (args[0].tolower() ==  "all")
         {
-            subjects = GetPlayerArray()
+            targets = GetPlayerArray()
         }
         else
         {
-            subjects.append(GetPlayerByNamePrefix(args[0]))
+            targets.append(GetPlayerByNamePrefix(args[0]))
         }
     }
     
-    foreach(subject in subjects)
+    foreach(target in targets)
     {
-        if( IsValid(subject) || !IsAlive(subject) )
+        if( IsValid(target) || !IsAlive(target) )
             continue
-        if( !subject.IsInvulnerable() ){
-            subject.SetInvulnerable()
-            SSOM_ChatServerPrivateMessage(player, "已设置玩家" + subject.GetPlayerName() + "为无敌状态！！！")
+        if( !targett.IsInvulnerable() ){
+            target.SetInvulnerable()
+            SSOM_ChatServerPrivateMessage(player, "已设置玩家" + target.GetPlayerName() + "为无敌状态！！！")
         }
         else
         {
-            subject.ClearInvulnerable()
-            SSOM_ChatServerPrivateMessage(player, "已取消玩家" + subject.GetPlayerName() + "的无敌状态！！！")
+            target.ClearInvulnerable()
+            SSOM_ChatServerPrivateMessage(player, "已取消玩家" + target.GetPlayerName() + "的无敌状态！！！")
         }
     }
 }

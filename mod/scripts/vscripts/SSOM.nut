@@ -52,15 +52,6 @@ array<entity> function SSOM_GetTargetPlayers(entity player, array<string> args)
                 targets.append(targetPlayer)
         }
     }
-    else
-    {
-        foreach(arg in args)
-        {
-            entity targetPlayer = GetPlayerByNamePrefix(arg)
-            if(targetPlayer != null)
-                targets.append(targetPlayer)
-        }
-    }
     
     return targets
 }

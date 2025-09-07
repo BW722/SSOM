@@ -275,13 +275,6 @@
 			}
 		},
 		{
-			"Path": "command/chat/status.nut",
-			"RunOn": "SERVER && MP",
-			"ServerCallback": {
-				"After": "ServerChatCommand_Status_Init"
-			}
-		},
-		{
 			"Path": "command/chat/anti_afk.nut",
 			"RunOn": "SERVER && MP",
 			"ServerCallback": {
