@@ -24,12 +24,12 @@ void function ServerChatCommand_Chat(entity player, array<string> args)
         if( SSOM_IsAffirmative(args0) && !currentlyEnabledd )
         {
             SSOM_SetChatEnabledd(true)
-            SSOM_ChatServerBroadcast( "聊天已开启！！！" )
+            SSOM_ChatServerBroadcast( "已开启聊天！！！" )
         }
         else if( !SSOM_IsAffirmative(args0) && currentlyEnabledd )
         {
             SSOM_SetChatEnabledd(false)
-            SSOM_ChatServerBroadcast( "聊天已关闭！！！" )
+            SSOM_ChatServerBroadcast( "已关闭聊天！！！" )
         }
     }
     else
