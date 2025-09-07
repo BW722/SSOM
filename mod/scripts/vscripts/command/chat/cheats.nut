@@ -30,7 +30,7 @@ void function ServerChatCommand_Cheats(entity player, array<string> args)
         SSOM_SetCheatsEnabledd(false)
     }
     string message = GetConVarBool( "sv_cheats" ) ? "开启" : "关闭"
-    SSOM_ChatServerPrivateMessage( player, "作弊已" + message + "！！！" )
+    SSOM_ChatServerPrivateMessage( player, "已" + message + "作弊！！！" )
 }
 
 void function SSOM_SetCheatsEnabledd(bool Enabled)
