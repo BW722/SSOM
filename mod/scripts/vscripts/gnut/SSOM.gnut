@@ -11,8 +11,8 @@ global function GetAllPlayers
 global function GetPlayerByName
 global function IsValidPlayerName
 global function GetBotArray
-global function GetPlayerByNamePrefix
-global function GetPlayerArrayByNamePrefix
+global function FindPlayerByNamePrefix
+global function FindPlayersByNamePrefix
 
 
 #if SERVER
@@ -95,15 +95,15 @@ array<entity> function GetBotArray()
     return bots
 }
 
-entity function GetPlayerByNamePrefix(string namePrefix)
+entity function FindPlayerByNamePrefix(string namePrefix)
 {
     string searchTerm = namePrefix.tolower()
     
-    foreach (player in GetPlayerArray())
+    foreach(player in GetPlayerArray())
     {
         string playerName = player.GetPlayerName().tolower()
         
-        if (StartsWith(playerName,searchTerm))
+        if(StartsWith(playerName,searchTerm))
         {
             return player
         }
@@ -112,16 +112,16 @@ entity function GetPlayerByNamePrefix(string namePrefix)
     return null
 }
 
-array<entity> function GetPlayerArrayByNamePrefix(string namePrefix)
+array<entity> function FindPlayersByNamePrefix(string namePrefix)
 {
     array<entity> matchingPlayers = []
     string searchTerm = namePrefix.tolower()
       
-    foreach (player in GetPlayerArray())
+    foreach(player in GetPlayerArray())
     {
         string playerName = player.GetPlayerName().tolower()
         
-        if (StartsWith(playerName,searchTerm))
+        if(StartsWith(playerName,searchTerm))
         {
             matchingPlayers.append(player)
         }

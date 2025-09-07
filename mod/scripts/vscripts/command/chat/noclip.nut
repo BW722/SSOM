@@ -31,13 +31,13 @@ void function ServerChatCommand_Noclip(entity player, array<string> args) {
         }
         else
         {
-            targets.append(GetPlayerByNamePrefix(args[0]))
+            targets.append(FindPlayerByNamePrefix(args[0]))
         }
     }
 
     foreach(target in targets)
     {
-        if( IsValid(target) || !IsAlive(target) )
+        if( !IsValid(target) || !IsAlive(target) )
             continue
         SSOM_Noclip(target)
     }

@@ -24,7 +24,7 @@ string function GetNewMessageId( entity player, float priority )
 {
 	int i = 0
 	string uid = player.GetUID()
-	for( ;; )
+	while(true)
 	{
 		i++
 		if( !( string( i ) in msgid[uid] ) )

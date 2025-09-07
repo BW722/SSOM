@@ -42,7 +42,7 @@ void function ServerChatCommand_Team(entity player, array<string> args)
     }
     else
     {
-        entity targetPlayer = GetPlayerByNamePrefix(args[0])
+        entity targetPlayer = FindPlayerByNamePrefix(args[0])
         if (!IsValid(targetPlayer))
         {
             SSOM_ChatServerPrivateMessage(player, "未找到玩家: " + args[0])

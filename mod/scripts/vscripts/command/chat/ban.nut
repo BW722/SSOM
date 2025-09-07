@@ -23,7 +23,7 @@ void function ServerChatCommand_Ban(entity player, array<string> args)
     
     string arg0 = args[0]
 
-    entity target = GetPlayerByNamePrefix(arg0)
+    entity target = FindPlayerByNamePrefix(arg0)
     if( !IsValid(target) )
     {
         SSOM_ChatServerPrivateMessage( player, "未找到玩家: " + arg0 )
@@ -55,7 +55,7 @@ void function ServerChatCommand_Unban(entity player, array<string> args)
     
     string arg0 = args[0]
 
-    entity target = GetPlayerByNamePrefix(arg0)
+    entity target = FindPlayerByNamePrefix(arg0)
     if( !IsValid(target) )
     {
         SSOM_ChatServerPrivateMessage( player, "未找到玩家: " + arg0 )

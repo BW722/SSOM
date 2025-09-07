@@ -30,15 +30,15 @@ void function ServerChatCommand_God(entity player, array<string> args)
         }
         else
         {
-            targets.append(GetPlayerByNamePrefix(args[0]))
+            targets.append(FindPlayerByNamePrefix(args[0]))
         }
     }
     
     foreach(target in targets)
     {
-        if( IsValid(target) || !IsAlive(target) )
+        if( !IsValid(target) || !IsAlive(target) )
             continue
-        if( !targett.IsInvulnerable() ){
+        if( !target.IsInvulnerable() ){
             target.SetInvulnerable()
             SSOM_ChatServerPrivateMessage(player, "已设置玩家" + target.GetPlayerName() + "为无敌状态！！！")
         }

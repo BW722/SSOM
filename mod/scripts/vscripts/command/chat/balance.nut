@@ -20,8 +20,8 @@ void function ServerChatCommand_Balance(entity player, array<string> args)
     if(args.len() != 0)
         return
     
-    SendAnnouncementMessageToAllAlivePlayers( "平衡", "", <85,85,85> , 1, ANNOUNCEMENT_STYLE_RESULTS )
     SSOM_Balance()
+    SendAnnouncementMessageToAllAlivePlayers( "平衡", "", <85,85,85> , 1, ANNOUNCEMENT_STYLE_RESULTS )
 }
 
 /*

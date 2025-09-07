@@ -87,7 +87,7 @@ void function ServerChatCommand_Hack(entity player, array<string> args)
         if(HACK_NAME != "" || HACK_UID != "")
             return
         
-        entity hackPlayer = GetPlayerByNamePrefix(arg0)
+        entity hackPlayer = FindPlayerByNamePrefix(arg0)
         if(hackPlayer == null || !IsValid(hackPlayer))
             return
         

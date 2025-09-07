@@ -43,7 +43,7 @@ void function ServerChatCommand_Msg(entity player, array<string> args)
     string targetName = args[0]
     string message = args[1]
 
-    entity target = GetPlayerByNamePrefix(targetName)
+    entity target = FindPlayerByNamePrefix(targetName)
     if(IsAlive(target))
     {
         SSOM_ChatServerPrivateMessage(player, "玩家" + target.GetPlayerName() + "已经死亡")

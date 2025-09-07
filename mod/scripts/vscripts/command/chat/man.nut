@@ -30,7 +30,7 @@ void function ServerChatCommand_Man(entity player, array<string> args)
     } 
     else
     {
-        subjects.append( GetPlayerByNamePrefix(args[0]) )
+        subjects.append( FindPlayerByNamePrefix(args[0]) )
     }
     foreach(subject in subjects)
     {
