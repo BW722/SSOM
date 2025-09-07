@@ -1,0 +1,32 @@
+global function AddServerConsoleCommandCallback
+global function IsServerConsoleCommandRegistered
+global function RemoveServerConsoleCommandCallback
+
+
+void function AddServerConsoleCommandCallback(string command, bool functionref(entity player, array<string> args) func)
+{
+    if( command == "" )
+        return
+    if ( func == null )
+        return
+    if( command in svGlobal.clientCommandCallbacks )
+        return
+    svGlobal.clientCommandCallbacks[command] <- func
+}
+
+bool function IsServerConsoleCommandRegistered(string command)
+{
+    if( command == "" )
+        return false
+    return (command in svGlobal.clientCommandCallbacks)
+}
+
+void function RemoveServerConsoleCommandCallback(string command)
+{
+    if( command == "" )
+        return
+    if( command in svGlobal.clientCommandCallbacks )
+    {
+        delete svGlobal.clientCommandCallbacks[command]
+    }
+}

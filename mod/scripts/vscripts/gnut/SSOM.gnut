@@ -1,0 +1,131 @@
+#if SERVER
+global function GetPlayerUID
+global function GetPlayerUIDByName
+#endif
+#if SERVER
+global function GetPlayerByUID
+global function IsValidUID
+#endif
+
+global function GetAllPlayers
+global function GetPlayerByName
+global function IsValidPlayerName
+global function GetBotArray
+global function GetPlayerByNamePrefix
+global function GetPlayerArrayByNamePrefix
+
+
+#if SERVER
+string function GetPlayerUID(entity player)
+{
+    return player.GetUID()
+}
+
+string function GetPlayerUIDByName(string playerName)
+{
+    return GetPlayerByName(playerName).GetUID()
+}
+#endif
+
+#if SERVER
+entity function GetPlayerByUID(string userId)
+{
+    foreach (player in GetPlayerArray())
+    {
+        if ( player.GetUID() == userId )
+        {
+            return player
+        }
+    }
+    return null
+}
+
+bool function IsValidUID(string userId)
+{
+    foreach (player in GetPlayerArray())
+    {
+        if ( player.GetUID() == userId )
+        {
+            return true
+        }
+    }
+    return false
+}
+#endif
+
+array<entity> function GetAllPlayers()
+{
+    return GetPlayerArray()
+}
+
+entity function GetPlayerByName(string playerName)
+{
+    foreach (player in GetPlayerArray())
+    {
+        if ( player.GetPlayerName() == playerName )
+        {
+            return player
+        }
+    }
+    return null
+}
+
+bool function IsValidPlayerName(string playerName)
+{
+    foreach (player in GetPlayerArray())
+    {
+        if ( player.GetPlayerName() == playerName )
+        {
+            return true
+        }
+    }
+    return false
+}
+
+array<entity> function GetBotArray()
+{
+    array<entity> bots = []
+    foreach (player in GetPlayerArray())
+    {
+        if (player.IsBot())
+        {
+            bots.append(player)
+        }
+    }
+    return bots
+}
+
+entity function GetPlayerByNamePrefix(string namePrefix)
+{
+    string searchTerm = namePrefix.tolower()
+    
+    foreach (player in GetPlayerArray())
+    {
+        string playerName = player.GetPlayerName().tolower()
+        
+        if (StartsWith(playerName,searchTerm))
+        {
+            return player
+        }
+    }
+    
+    return null
+}
+
+array<entity> function GetPlayerArrayByNamePrefix(string namePrefix)
+{
+    array<entity> matchingPlayers = []
+    string searchTerm = namePrefix.tolower()
+      
+    foreach (player in GetPlayerArray())
+    {
+        string playerName = player.GetPlayerName().tolower()
+        
+        if (StartsWith(playerName,searchTerm))
+        {
+            matchingPlayers.append(player)
+        }
+    }
+    
+    return matchingPlayers
+}

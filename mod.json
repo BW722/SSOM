@@ -1,0 +1,335 @@
+{
+	"Name": "SSOM",
+	"Description": "Fuck Respawn Entertainment",
+	"Version": "1.0.0",
+	"LoadPriority": 4,
+	"ConVars": [
+		{
+			//管理员 UID
+			"Name": "SSOM_AdminUID",
+			"DefaultValue": ""
+		},
+		{
+			//外挂 UID
+			"Name": "SSOM_HackUID",
+			"DefaultValue": ""
+		},
+		{
+			//公告
+			"Name": "SSOM_Announcement",
+			"DefaultValue": ""
+		},
+		{
+			//反挂机
+			"Name": "SSOM_AntiAFKEnabled",
+			"DefaultValue": "0"// 0:关闭 1:开启
+		},
+		{
+			//私聊
+			"Name": "SSOM_MsgEnabled",
+			"DefaultValue": "0"// 0:关闭 1:开启
+		},
+		{
+			//聊天
+			"Name": "SSOM_ChatEnabled",
+			"DefaultValue": "1"// 0:关闭 1:开启
+		}
+	],
+	"Scripts": [
+		{
+			"Path": "SSOM.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "SSOM_Init"
+			}
+		},
+		{
+			"Path": "SSOM_Connect.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "SSOM_Connect_Init"
+			}
+		},
+		{
+			"Path": "SSOM_Announcement.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "SSOM_Announcement_Init"
+			}
+		},
+		{
+			"Path": "ui/menu_ssom_command.nut",
+			"RunOn": "UI",
+			"UICallback": {
+				"After": "Menu_SSOMCommand_Init"
+			}
+		},
+		{
+			"Path": "SSOM_MenuCommand.nut",
+			"RunOn": "CLIENT && MP",
+			"ClientCallback": {
+				"After": "SSOM_MenuCommand_Init"
+			}
+		},
+
+		{
+			"Path": "gnut/SSOM.gnut",
+			"RunOn": "MP"
+		},
+		{
+			"Path": "gnut/SendLargeMessage.gnut",
+			"RunOn": "SERVER && MP"
+		},
+		{
+			"Path": "gnut/SendAnnouncementMessage.gnut",
+			"RunOn": "SERVER && MP"
+		},
+		{
+			"Path": "gnut/SendPopUpMessage.gnut",
+			"RunOn": "SERVER && MP"
+		},
+		{
+			"Path": "gnut/SendInfoMessage.gnut",
+			"RunOn": "SERVER && MP"
+		},
+		{
+			"Path": "gnut/hudmsg_priority.gnut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "HudMessagePriority_Init"
+			}
+		},
+
+		{
+			"Path": "class/SSOM_CPlayer.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "SSOM_CPlayer_Init"
+			}
+		},
+		{
+			"Path": "class/SSOM_C_Player.nut",
+			"RunOn": "CLIENT && MP",
+			"ClientCallback": {
+				"After": "SSOM_C_Player_Init"
+			}
+		},
+
+		{
+			"Path": "/callback/ClientChatCommands.gnut",
+			"RunOn": "CLIENT && MP",
+			"ClientCallback": {
+				"After": "ClientChatCommands_Init"
+			}
+		},
+		{
+			"Path": "/callback/ServerChatCommands.gnut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommands_Init"
+			}
+		},
+		{
+			"Path": "/callback/ServerConsoleCommands.gnut",
+			"RunOn": "SERVER && MP"
+		},
+
+		{
+			"Path": "command/chat/tp.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Tp_Init"
+			}
+		},
+		{
+			"Path": "command/chat/cheats.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Cheats_Init"
+			}
+		},
+		{
+			"Path": "command/chat/god.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_God_Init"
+			}
+		},
+		{
+			"Path": "command/chat/team.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Team_Init"
+			}
+		},
+		{
+			"Path": "command/chat/kill.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Kill_Init"
+			}
+		},
+		{
+			"Path": "command/chat/create_boss.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_CreateBoss_Init"
+			}
+		},
+		{
+			"Path": "command/chat/player.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Player_Init"
+			}
+		},
+		{
+			"Path": "command/chat/noclip.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Noclip_Init"
+			}
+		},
+		{
+			"Path": "command/chat/ban.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Ban_Init"
+			}
+		},
+		{
+			"Path": "command/chat/chat.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Chat_Init"
+			}
+		},
+		{
+			"Path": "command/chat/stop.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Stop_Init"
+			}
+		},
+		{
+			"Path": "command/chat/hide.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Hide_Init"
+			}
+		},
+		{
+			"Path": "command/chat/show.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Show_Init"
+			}
+		},
+		{
+			"Path": "command/chat/tf.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Tf_Init"
+			}
+		},
+		{
+			"Path": "command/chat/man.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Man_Init"
+			}
+		},
+		{
+			"Path": "command/chat/hack.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Hack_Init"
+			}
+		},
+		{
+			"Path": "command/chat/fold.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Fold_Init"
+			}
+		},
+		{
+			"Path": "command/chat/map.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Map_Init"
+			}
+		},
+		{
+			"Path": "command/chat/skip.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Skip_Init"
+			}
+		},
+		{
+			"Path": "command/chat/mute.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Mute_Init"
+			}
+		},
+		{
+			"Path": "command/chat/status.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Status_Init"
+			}
+		},
+		{
+			"Path": "command/chat/anti_afk.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_AntiAFK_Init"
+			}
+		},
+		{
+			"Path": "command/chat/msg.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Msg_Init"
+			}
+		},
+		{
+			"Path": "command/chat/kick.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Kick_Init"
+			}
+		},
+		{
+			"Path": "command/chat/balance.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Balance_Init"
+			}
+		},
+
+		{
+			"Path": "command/console/SSOM_GetPlayerUID.gnut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerConsoleCommand_SSOM_GetPlayerUID_Init"
+			}
+		},
+		{
+			"Path": "command/console/SSOM_SetCallsignIcon.gnut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerConsoleCommand_SSOM_SetCallsignIcon_Init"
+			}
+		},
+		{
+			"Path": "command/console/SSOM_SetCallsignCard.gnut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerConsoleCommand_SSOM_SetCallsignCard_Init"
+			}
+		}
+	]
+}

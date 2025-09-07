@@ -1,0 +1,23 @@
+global function ServerConsoleCommand_SSOM_SetCallsignCard_Init
+
+
+void function ServerConsoleCommand_SSOM_SetCallsignCard_Init()
+{
+    AddServerConsoleCommandCallback( "SSOM_SetCallsignCard", ServerConsoleCommand_SetCallsignCard )
+}
+
+bool function ServerConsoleCommand_SetCallsignCard( entity player, array<string> args )
+{
+    if(args.len() != 1)
+        return false
+     
+    string card = args[0]
+
+	if( IsRefValidAndOfType( card, eItemTypes.CALLING_CARD ) )
+    {
+        PlayerCallingCard_SetActiveByRef( player, card )
+        return true
+    }
+	
+	return false
+}

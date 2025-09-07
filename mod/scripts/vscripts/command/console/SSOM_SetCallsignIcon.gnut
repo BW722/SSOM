@@ -1,0 +1,29 @@
+global function ServerConsoleCommand_SSOM_SetCallsignIcon_Init
+global function IsRefValidAndOfType
+
+
+void function ServerConsoleCommand_SSOM_SetCallsignIcon_Init()
+{
+    AddServerConsoleCommandCallback( "SSOM_SetCallsignIcon", ServerConsoleCommand_SetCallsignIcon )
+}
+
+bool function ServerConsoleCommand_SetCallsignIcon( entity player, array<string> args )
+{
+    if(args.len() != 1)
+        return false
+    
+    string icon = args[0]
+
+	if( IsRefValidAndOfType( icon, eItemTypes.CALLSIGN_ICON ) )
+    {
+        PlayerCallsignIcon_SetActiveByRef( player, icon )
+        return true
+    }
+	
+	return false
+}
+
+bool function IsRefValidAndOfType( string ref, int itemType )
+{
+	return IsRefValid( ref ) && GetItemType( ref ) == itemType 
+}

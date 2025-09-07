@@ -1,0 +1,18 @@
+global function ServerConsoleCommand_SSOM_GetPlayerUID_Init
+
+
+void function ServerConsoleCommand_SSOM_GetPlayerUID_Init()
+{
+    AddServerConsoleCommandCallback( "SSOM_GetPlayerUID", ServerConsoleCommand_GetPlayerUID )
+}
+
+bool function ServerConsoleCommand_GetPlayerUID( entity player, array<string> args )
+{
+    if(args.len() != 1)
+        return false
+    entity target = GetPlayerByName(args[0])
+    if( target == null )
+        return false
+    SSOM_ChatServerPrivateMessage( player, "UID: " + target.GetUID() )
+	return true
+}
