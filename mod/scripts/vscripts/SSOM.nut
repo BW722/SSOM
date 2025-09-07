@@ -2,6 +2,7 @@ untyped
 global function SSOM_Init
 global function SSOM_IsPlayerDeveloper
 global function SSOM_IsPlayerAdmin
+global function SSOM_GetTargetPlayers
 global function SSOM_GetAdminArray
 global function SSOM_GetSSOMVersion
 global function SSOM_SetPrefix
@@ -28,6 +29,41 @@ bool function SSOM_IsPlayerAdmin(entity player)
 {
     string playerUID = GetPlayerUID(player)
     return SSOM_IsPlayerDeveloper(player) || split(GetConVarString("SSOM_AdminUID"),",").contains(playerUID)
+}
+
+// 获取目标玩家
+array<entity> function SSOM_GetTargetPlayers(entity player, array<string> args)
+{
+    array<entity> targets = []
+    
+    if(args.len() == 0)
+    {
+        targets.append(player)
+    }
+    else if(args.len() == 1)
+    {
+        if(args[0].tolower() == "all")
+        {
+            targets = GetPlayerArray()
+        }
+        else
+        {
+            entity targetPlayer = GetPlayerByNamePrefix(args[0])
+            if(targetPlayer != null)
+                targets.append(targetPlayer)
+        }
+    }
+    else
+    {
+        foreach(arg in args)
+        {
+            entity targetPlayer = GetPlayerByNamePrefix(arg)
+            if(targetPlayer != null)
+                targets.append(targetPlayer)
+        }
+    }
+    
+    return targets
 }
 
 array<entity> function SSOM_GetAdminArray()

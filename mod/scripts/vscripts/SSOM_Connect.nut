@@ -32,23 +32,6 @@ void function OnClientConnected(entity player)
 void function OnPlayerDisconnected(entity player)
 {
     thread PlayerDisconnected(player)
-    /*
-    if (!SSOM_IsPlayerAdmin(player))
-        return
-    
-    array<entity> onlineAdmins = SSOM_GetAdminArray()
-    int index = onlineAdmins.find(player)
-
-    if (index != -1)
-    {
-        onlineAdmins.remove(index)
-    }
-    
-    if (onlineAdmins.len() == 0)
-    {
-        SSOM_SetCheatsEnabledd(false)
-    }
-    */
 }
 
 void function ClientConnected(entity player)

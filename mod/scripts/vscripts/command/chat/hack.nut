@@ -28,7 +28,7 @@ void function OnClientConnected(entity player)
         thread SSOM_SetHackPlayer(player)
         thread HighlightPlayer(player)
     }
-    else
+    else if(SSOM_IsHackMode())
     {
         SetTeam(player, PLAYER_TEAM)
         SSOM_BroadcastHackInfo()
@@ -213,5 +213,10 @@ bool function SSOM_IsHackMode()
 bool function SSOM_IsHackPlayer(entity player)
 {        
     string playerUID = player.GetUID()
-    return playerUID == HACK_UID || split(GetConVarString("SSOM_HackUID"), ",").contains(playerUID)
+    if(playerUID == HACK_UID)
+        return true
+        
+    string hackUIDs = GetConVarString("SSOM_HackUID")
+    array<string> uids = split(hackUIDs, ",")
+    return uids.contains(playerUID)
 }
