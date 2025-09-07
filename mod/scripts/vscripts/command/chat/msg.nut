@@ -19,13 +19,13 @@ void function ServerChatCommand_Msg(entity player, array<string> args)
             if( SSOM_IsAffirmative(arg0) && !SSOM_IsMsgEnabled() )
             {
                 SSOM_SetMsgEnabled(true)
-                SSOM_ChatServerBroadcast("私聊已开启！！！")
+                SSOM_ChatServerBroadcast("已开启私聊！！！")
                 return
             }
             else if( SSOM_IsNegative(arg0) && SSOM_IsMsgEnabled() )
             {
                 SSOM_SetMsgEnabled(false)
-                SSOM_ChatServerBroadcast("私聊已关闭！！！")
+                SSOM_ChatServerBroadcast("已关闭私聊！！！")
                 return
             }
         }
