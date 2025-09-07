@@ -108,7 +108,7 @@ bool function SSOM_IsAffirmative(string input)
 {
     string lowerInput = input.tolower()
     
-    if( lowerInput == "on" || lowerInput == "true" || lowerInput == "1" || lowerInput == "yes" || lowerInput == "Enabled" || lowerInput == "Enabledd" )
+    if( lowerInput == "on" || lowerInput == "true" || lowerInput == "1" || lowerInput == "yes" )
     {
         return true
     }
@@ -120,7 +120,7 @@ bool function SSOM_IsNegative(string input)
 {
     string lowerInput = input.tolower()
 
-    if( lowerInput == "off" || lowerInput == "false" || lowerInput == "0" || lowerInput == "no" || lowerInput == "disable" || lowerInput == "disabled" )
+    if( lowerInput == "off" || lowerInput == "false" || lowerInput == "0" || lowerInput == "no" )
     {
         return true
     }

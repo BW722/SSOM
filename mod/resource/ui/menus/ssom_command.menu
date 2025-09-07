@@ -11,7 +11,7 @@ resource/ui/menus/ueg_command.menu
 		autoResize				0
 		pinCorner				0
 		visible					1
-		Enabledd					1
+		enabled					1
 		PaintBackgroundType		0
 		infocus_bgcolor_override	"0 0 0 0"
 		outoffocus_bgcolor_override	"0 0 0 0"
@@ -20,7 +20,7 @@ resource/ui/menus/ueg_command.menu
 		{
 			ControlName				Label
 			InheritProperties		MenuTitle
-			labelText				"SSOMCommand"
+			labelText				"Dev"
 		}
 
 		ImgTopBar

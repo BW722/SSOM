@@ -94,7 +94,7 @@ void function SSOM_UnmutePlayer( entity player )
 
 ClServer_MessageStruct function OnReceivedSayTextMessage(ClServer_MessageStruct message)
 {
-    if(!SSOM_IsChatEnabledd())
+    if(!SSOM_IsChatEnabled())
         return message
         
     entity player = message.player

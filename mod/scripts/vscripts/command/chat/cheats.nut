@@ -1,6 +1,6 @@
 global function ServerChatCommand_Cheats_Init
-
-global function SSOM_SetCheatsEnabledd
+global function SSOM_SetCheatsEnabled
+global function SSOM_IsCheatsEnabled
 
 void function ServerChatCommand_Cheats_Init()
 {
@@ -19,21 +19,26 @@ void function ServerChatCommand_Cheats(entity player, array<string> args)
         return
 
     string arg0 = args[0]
-    bool cheats = GetConVarBool( "sv_cheats" )
+    bool cheats = SSOM_IsCheatsEnabled()
 
     if( SSOM_IsAffirmative( arg0 ) && !cheats )
     {
-        SSOM_SetCheatsEnabledd(true)
+        SSOM_SetCheatsEnabled(true)
     }
     else if( SSOM_IsNegative( arg0 ) && cheats)
     {
-        SSOM_SetCheatsEnabledd(false)
+        SSOM_SetCheatsEnabled(false)
     }
-    string message = GetConVarBool( "sv_cheats" ) ? "开启" : "关闭"
+    string message = SSOM_IsCheatsEnabled() ? "开启" : "关闭"
     SSOM_ChatServerPrivateMessage( player, "已" + message + "作弊！！！" )
 }
 
-void function SSOM_SetCheatsEnabledd(bool Enabled)
+void function SSOM_SetCheatsEnabled(bool enabled)
 {
-    SetConVarBool( "sv_cheats", Enabled )
+    SetConVarBool( "sv_cheats", enabled )
+}
+
+bool function SSOM_IsCheatsEnabled()
+{
+    return GetConVarBool( "sv_cheats" )
 }
