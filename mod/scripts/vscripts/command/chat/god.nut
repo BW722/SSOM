@@ -36,7 +36,7 @@ void function ServerChatCommand_God(entity player, array<string> args)
     
     foreach(subject in subjects)
     {
-        if( subject == null || !IsAlive(subject) )
+        if( IsValid(subject) || !IsAlive(subject) )
             continue
         if( !subject.IsInvulnerable() ){
             subject.SetInvulnerable()

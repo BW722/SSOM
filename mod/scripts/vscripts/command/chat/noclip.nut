@@ -37,7 +37,7 @@ void function ServerChatCommand_Noclip(entity player, array<string> args) {
 
     foreach(target in targets)
     {
-        if(target == null || !IsAlive(target))
+        if( IsValid(target) || !IsAlive(target) )
             continue
         SSOM_Noclip(target)
     }
