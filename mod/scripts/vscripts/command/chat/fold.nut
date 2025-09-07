@@ -32,8 +32,8 @@ void function ServerChatCommand_Fold(entity player, array<string> args)
 
 	if(args.len() != 1)
 		return
-	string args0 = args[0].tolower()
-	if(args0 != "start" && args0 != "stop")
+	string arg0 = args[0].tolower()
+	if(arg0 != "start" && arg0 != "stop")
 		return
 	
 	array<string> msg = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
@@ -48,7 +48,7 @@ void function ServerChatCommand_Fold(entity player, array<string> args)
     HudMsgSend(msg, player)
 
 	wait 1.0
-    if(args0 == "start" && !Flag("Fold_FoldWeaponStart"))
+    if(arg0 == "start" && !Flag("Fold_FoldWeaponStart"))
 	{
     	PlayFinishBeepSound(player)
     	msg.append("Fold Weapon Start")
@@ -57,7 +57,7 @@ void function ServerChatCommand_Fold(entity player, array<string> args)
     	wait 1.5
     	thread FoldWeapon(player)
 	}
-	else if(args0 == "stop" && Flag("Fold_FoldWeaponStart") && !FoldWeaponStop)
+	else if(arg0 == "stop" && Flag("Fold_FoldWeaponStart") && !FoldWeaponStop)
 	{
     	PlayFinishBeepSound(player)
     	msg.append("Fold Weapon Stop")

@@ -22,7 +22,7 @@ void function ServerChatCommand_Kick(entity player, array<string> args)
 
     entity target = GetPlayerByNamePrefix(args[0])
 
-    if( target == null || !IsValid(target) )
+    if( !IsValid(target) )
         return
 
     string reason = args.len() == 2 ? args[1] : ""

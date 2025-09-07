@@ -1,7 +1,7 @@
 untyped
 global function ServerChatCommand_Man_Init
-
 global function dropship
+global function DropNukeTitan
 
 void function ServerChatCommand_Man_Init()
 {

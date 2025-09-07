@@ -24,7 +24,7 @@ void function ServerChatCommand_Mute(entity player, array<string> args)
         return
     
     entity target = GetPlayerByNamePrefix(args[0])
-    if( target == null || !IsValid(target) )
+    if( !IsValid(target) )
         return
     if( SSOM_IsPlayerAdmin(target) )
     {
@@ -53,7 +53,7 @@ void function ServerChatCommand_Unmute(entity player, array<string> args)
         return
     
     entity target = GetPlayerByNamePrefix(args[0])
-    if( target == null || !IsValid(target) )
+    if( !IsValid(target) )
         return
     if( !(GetPlayerUID(target) in mutes) )
         return
