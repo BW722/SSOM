@@ -4,6 +4,7 @@ void function ServerChatCommand_Map_Init()
 {
     if(IsLobby() || IsMenuLevel())
         return
+    
     AddServerChatCommandCallback("/map", ServerChatCommand_Map)
 }
 
@@ -18,12 +19,13 @@ void function ServerChatCommand_Map(entity player, array<string> args)
     if (args.len() != 1)
         return
     
-    string args0 = args[0]
-    if( !GetPrivateMatchMaps().contains(args0) )
+    string arg0 = args[0]
+    if( !GetPrivateMatchMaps().contains(arg0) )
     {
         SSOM_ChatServerPrivateMessage(player, "地图不存在！！！")
         return
     }
-    
-    GameRules_ChangeMap( args0, GameRules_GetGameMode() ) 
+    SSOM_ChatServerBroadcast("正在切换地图: " + arg0)
+    wait 1.0
+    GameRules_ChangeMap( arg0, GameRules_GetGameMode() ) 
 }

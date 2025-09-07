@@ -15,4 +15,5 @@ void function ServerChatCommand_Skip(entity player, array<string> args)
         return
     }
     SetGameState(eGameState.Postmatch)
+    SSOM_ChatServerBroadcast("已跳过当前游戏")
 }

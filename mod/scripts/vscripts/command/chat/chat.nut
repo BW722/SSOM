@@ -19,14 +19,14 @@ void function ServerChatCommand_Chat(entity player, array<string> args)
 
     if( args.len() == 1 )
     {
-        string args0 = args[0].tolower()
+        string arg0 = args[0].tolower()
         bool currentlyEnabled = SSOM_IsChatEnabled()
-        if( SSOM_IsAffirmative(args0) && !currentlyEnabled )
+        if( SSOM_IsAffirmative(arg0) && !currentlyEnabled )
         {
             SSOM_SetChatEnabled(true)
             SSOM_ChatServerBroadcast( "已开启聊天！！！" )
         }
-        else if( !SSOM_IsAffirmative(args0) && currentlyEnabled )
+        else if( !SSOM_IsAffirmative(arg0) && currentlyEnabled )
         {
             SSOM_SetChatEnabled(false)
             SSOM_ChatServerBroadcast( "已关闭聊天！！！" )

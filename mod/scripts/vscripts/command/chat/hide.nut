@@ -26,13 +26,10 @@ void function ServerChatCommand_Hide(entity player, array<string> args)
     int successCount = 0
     foreach(target in targets)
     {
-        if(target != null && IsAlive(target))
+        if(IsValid(target) && IsAlive(target))
         {
             target.kv.VisibilityFlags = 0
             successCount++
-            
-            if(target != player)
-                SSOM_ChatServerPrivateMessage(target, "你已被管理员隐藏")
         }
     }
     

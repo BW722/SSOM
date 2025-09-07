@@ -167,7 +167,7 @@ void function SSOM_SetHackPlayer(entity player)
         FlagSet("CoopGeneratorUnderattackAlarmStop")
         FlagClear("CoopGeneratorUnderattackAlarmStop")
 
-        KillAllPlayers()
+        SSOM_KillAllPlayers()
 
         SSOM_Balance()
         return

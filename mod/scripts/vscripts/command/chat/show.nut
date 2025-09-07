@@ -26,13 +26,10 @@ void function ServerChatCommand_Show(entity player, array<string> args)
     int successCount = 0
     foreach(target in targets)
     {
-        if(target != null && IsAlive(target))
+        if(IsAlive(target))
         {
             target.kv.VisibilityFlags = ENTITY_VISIBLE_TO_EVERYONE
             successCount++
-            
-            if(target != player)
-                SSOM_ChatServerPrivateMessage(target, "你已被管理员显示")
         }
     }
     

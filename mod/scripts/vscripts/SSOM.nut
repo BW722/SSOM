@@ -31,7 +31,6 @@ bool function SSOM_IsPlayerAdmin(entity player)
     return SSOM_IsPlayerDeveloper(player) || split(GetConVarString("SSOM_AdminUID"),",").contains(playerUID)
 }
 
-// 获取目标玩家
 array<entity> function SSOM_GetTargetPlayers(entity player, array<string> args)
 {
     array<entity> targets = []
