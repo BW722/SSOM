@@ -1,4 +1,3 @@
-untyped
 global function SSOM_Init
 global function SSOM_IsPlayerDeveloper
 global function SSOM_IsPlayerAdmin
@@ -19,15 +18,15 @@ string SSOM_GitHub = "https://github.com/BW722/SSOM"
 
 void function SSOM_Init()
 {
-    AddServerChatCommandCallback( "/ssom" ServerChatCommand_SSOM )
-    AddServerChatCommandCallback( "/SSOM" ServerChatCommand_SSOM )
+    AddServerChatCommandCallback( "/test", ServerChatCommand_SSOM )
+    AddServerChatCommandCallback( "/SSOM", ServerChatCommand_SSOM )
 }
 
-void function ServerChatCommand_SSOM(entity player, array<string> args)
+void function ServerChatCommand_SSOM( entity player, array<string> args )
 {
-    SSOM_ChatServerPrivateMessage( player, "Name：" + "SSOM" )
-    SSOM_ChatServerPrivateMessage( player, "Version：" + SSOM_GetSSOMVersion() )
-    SSOM_ChatServerPrivateMessage( player, "GitHub：" + SSOM_GitHub )
+    SSOM_ChatServerPrivateMessage( player, "Name: " + "SSOM" )
+    SSOM_ChatServerPrivateMessage( player, "Version: " + SSOM_GetSSOMVersion() )
+    SSOM_ChatServerPrivateMessage( player, "GitHub: " + SSOM_GitHub )
 }
 
 bool function SSOM_IsPlayerDeveloper(entity player)
