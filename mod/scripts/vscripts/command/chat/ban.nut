@@ -32,12 +32,6 @@ void function ServerChatCommand_Ban(entity player, array<string> args)
     
     string targetUID = GetPlayerUID(target)
     
-    if( SSOM_IsPlayerAdmin(target) && !dedbg )
-    {
-        SSOM_ChatServerPrivateMessage(player, "你不能封禁管理员！！！")
-        return
-    }
-
     SSOM_BanPlayer( target )
     SSOM_ChatServerPrivateMessage(player, "已封禁玩家: " + target.GetPlayerName())
 }

@@ -15,8 +15,19 @@ global function SSOM_IsNegative
 string prefix = "[90m[SSOM][97m"
 array<string> developerUIDs = [ "1013199872353" ]
 
+string SSOM_GitHub = "https://github.com/BW722/SSOM"
+
 void function SSOM_Init()
 {
+    AddServerChatCommandCallback( "/ssom" ServerChatCommand_SSOM )
+    AddServerChatCommandCallback( "/SSOM" ServerChatCommand_SSOM )
+}
+
+void function ServerChatCommand_SSOM(entity player, array<string> args)
+{
+    SSOM_ChatServerPrivateMessage( player, "Name：" + "SSOM" )
+    SSOM_ChatServerPrivateMessage( player, "Version：" + SSOM_GetSSOMVersion() )
+    SSOM_ChatServerPrivateMessage( player, "GitHub：" + SSOM_GitHub )
 }
 
 bool function SSOM_IsPlayerDeveloper(entity player)
