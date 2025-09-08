@@ -1,3 +1,4 @@
+untyped
 #if SERVER
 global function GetPlayerUID
 global function GetPlayerUIDByName
@@ -13,6 +14,8 @@ global function IsValidPlayerName
 global function GetBotArray
 global function FindPlayerByNamePrefix
 global function FindPlayersByNamePrefix
+global function hasNonDigit
+global function isdigit
 
 
 #if SERVER
@@ -128,4 +131,20 @@ array<entity> function FindPlayersByNamePrefix(string namePrefix)
     }
     
     return matchingPlayers
+}
+
+bool function hasNonDigit(str) {
+    foreach(ch in str)
+    {
+        if(ch < '0' || ch > '9')
+        {
+            return true
+        }
+    }
+    return false
+}
+
+bool function isdigit(ch)
+{
+    return ch >= '0' && ch <= '9'
 }

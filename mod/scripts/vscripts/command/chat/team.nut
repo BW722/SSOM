@@ -1,5 +1,6 @@
 global function ServerChatCommand_Team_Init
 
+
 void function ServerChatCommand_Team_Init()
 {
     AddServerChatCommandCallback("/team", ServerChatCommand_Team)
@@ -16,23 +17,6 @@ void function ServerChatCommand_Team(entity player, array<string> args)
     if (args.len() != 2)
         return
 
-    int team
-    try
-    {
-        team = int(args[1])
-    }
-    catch(error)
-    {
-        SSOM_ChatServerPrivateMessage(player, "队伍必须是数字")
-        return
-    }
-    
-    if(team < 2)
-    {
-        SSOM_ChatServerPrivateMessage(player, "队伍必须大于等于2")
-        return
-    }
-
     array<entity> targetPlayers = []
     string targetName = args[0].tolower()
     
@@ -42,13 +26,36 @@ void function ServerChatCommand_Team(entity player, array<string> args)
     }
     else
     {
-        entity targetPlayer = FindPlayerByNamePrefix(args[0])
+        entity targetPlayer = FindPlayerByNamePrefix(targetName)
         if(!IsValid(targetPlayer))
         {
             SSOM_ChatServerPrivateMessage(player, "未找到玩家: " + args[0])
             return
         }
         targetPlayers.append(targetPlayer)
+    }
+
+    if(hasNonDigit(args[1]))
+    {
+        SSOM_ChatServerPrivateMessage(player, "队伍必须是数字")
+        return
+    }
+
+    int team
+    try
+    {
+        team = int(args[1])
+    }
+    catch(error)
+    {
+        SSOM_ChatServerPrivateMessage(player, "错误：" + string(error))
+        return
+    }
+    
+    if(team < 2)
+    {
+        SSOM_ChatServerPrivateMessage(player, "队伍必须大于等于2")
+        return
     }
 
     int successCount = 0
