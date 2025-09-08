@@ -61,7 +61,7 @@ void function ServerChatCommand_Tp(entity adminPlayer, array<string> args)
     if (subjectName.tolower() == "all")
         SSOM_ChatServerPrivateMessage(adminPlayer, "已传送所有玩家（共" + teleportedCount + "人）到 " + targetPlayer.GetPlayerName())
     else
-        SSOM_ChatServerPrivateMessage(adminPlayer, "已传送 " + teleportPlayers[0].GetPlayerName() + " 到 " + targetPlayer.GetPlayerName())
+        SSOM_ChatServerPrivateMessage(adminPlayer, "已传送玩家 " + teleportPlayers[0].GetPlayerName() + " 到 " + targetPlayer.GetPlayerName())
 }
 
 void function SSOM_TeleportPlayerToPlayer(entity playerToTeleport, entity destinationPlayer)

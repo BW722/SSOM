@@ -40,7 +40,7 @@ void function ServerChatCommand_Tf(entity player, array<string> args)
     if(args[0].tolower() == "all")
         SSOM_ChatServerPrivateMessage(player, "已为所有玩家降落泰坦（共" + successCount + "人）")
     else if (args.len() > 0)
-        SSOM_ChatServerPrivateMessage(player, "已为玩家: " + targets[0].GetPlayerName() + " 降落泰坦")
+        SSOM_ChatServerPrivateMessage(player, "已为玩家 " + targets[0].GetPlayerName() + " 降落泰坦")
     else
         SSOM_ChatServerPrivateMessage(player, "已为自己降落泰坦")
 }

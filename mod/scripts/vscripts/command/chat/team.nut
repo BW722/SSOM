@@ -21,7 +21,7 @@ void function ServerChatCommand_Team(entity player, array<string> args)
     {
         team = int(args[1])
     }
-    catch (error)
+    catch(error)
     {
         SSOM_ChatServerPrivateMessage(player, "队伍必须是数字")
         return
@@ -43,7 +43,7 @@ void function ServerChatCommand_Team(entity player, array<string> args)
     else
     {
         entity targetPlayer = FindPlayerByNamePrefix(args[0])
-        if (!IsValid(targetPlayer))
+        if(!IsValid(targetPlayer))
         {
             SSOM_ChatServerPrivateMessage(player, "未找到玩家: " + args[0])
             return

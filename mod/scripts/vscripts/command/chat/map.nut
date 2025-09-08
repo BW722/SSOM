@@ -26,6 +26,6 @@ void function ServerChatCommand_Map(entity player, array<string> args)
         return
     }
     SSOM_ChatServerBroadcast("正在切换地图: " + arg0)
-    wait 1.0
+    wait 2.0
     GameRules_ChangeMap( arg0, GameRules_GetGameMode() ) 
 }
