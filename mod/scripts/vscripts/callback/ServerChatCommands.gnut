@@ -5,7 +5,7 @@ global function IsServerChatCommandRegistered
 global function RemoveServerChatCommandCallback
 
 
-table< string, void functionref(entity, array<string>) > ChatCommandCallbacks = {}
+table< string, void functionref(entity, array<string>) > chatCommandCallbacks = {}
 
 void function ServerChatCommands_Init()
 {
@@ -18,12 +18,12 @@ ClServer_MessageStruct function OnReceivedSayTextMessage(ClServer_MessageStruct 
     string chatText = message.message
 
     array<string> words = split(chatText, " ")
-    string commandKey = words[0]
+    string command = words[0]
 
-    if( commandKey in ChatCommandCallbacks )
+    if( command in chatCommandCallbacks )
     {
         array<string> args = words.slice(1)
-        thread ChatCommandCallbacks[commandKey](player, args)
+        thread chatCommandCallbacks[command](player, args)
         message.shouldBlock = true
     }
 
@@ -36,24 +36,24 @@ void function AddServerChatCommandCallback(string command, void functionref(enti
         return
     if ( func == null )
         return
-    if( command in ChatCommandCallbacks )
+    if( command in chatCommandCallbacks )
         return
-    ChatCommandCallbacks[command] <- func
+    chatCommandCallbacks[command] <- func
 }
 
 bool function IsServerChatCommandRegistered(string command)
 {
     if( command == "" )
         return false
-    return (command in ChatCommandCallbacks)
+    return (command in chatCommandCallbacks)
 }
 
 void function RemoveServerChatCommandCallback(string command)
 {
     if( command == "" )
         return
-    if( command in ChatCommandCallbacks )
+    if( command in chatCommandCallbacks )
     {
-        delete ChatCommandCallbacks[command]
+        delete chatCommandCallbacks[command]
     }
 }

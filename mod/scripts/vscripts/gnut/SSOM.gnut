@@ -2,10 +2,13 @@ untyped
 #if SERVER
 global function GetPlayerUID
 global function GetPlayerUIDByName
-#endif
-#if SERVER
+
 global function GetPlayerByUID
 global function IsValidUID
+#endif
+
+#if CLIENT
+global function GetPlayerPing
 #endif
 
 global function GetAllPlayers
@@ -14,6 +17,7 @@ global function IsValidPlayerName
 global function GetBotArray
 global function GetPlayerByNamePrefix
 global function GetPlayersByNamePrefix
+
 global function hasNonDigit
 global function isdigit
 
@@ -28,9 +32,7 @@ string function GetPlayerUIDByName(string playerName)
 {
     return GetPlayerByName(playerName).GetUID()
 }
-#endif
 
-#if SERVER
 entity function GetPlayerByUID(string userId)
 {
     foreach (player in GetPlayerArray())
@@ -53,6 +55,26 @@ bool function IsValidUID(string userId)
         }
     }
     return false
+}
+#endif
+
+#if CLIENT
+int function GetPlayerPing(entity player)
+{
+    if(player == GetLocalClientPlayer())
+    {
+        return MyPing()
+    }
+    else
+    {
+        return player.GetPlayerGameStat(PGS_PING)
+    }
+    return -1
+}
+
+int function GetPing(entity player)
+{
+    return GetPlayerPing(player)
 }
 #endif
 
