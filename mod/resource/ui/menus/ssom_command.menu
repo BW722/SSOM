@@ -20,7 +20,7 @@ resource/ui/menus/ueg_command.menu
 		{
 			ControlName				Label
 			InheritProperties		MenuTitle
-			labelText				"Dev"
+			labelText				"SSOM COMMAND"
 		}
 
 		ImgTopBar

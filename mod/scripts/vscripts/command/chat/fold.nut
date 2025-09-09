@@ -26,7 +26,7 @@ void function ServerChatCommand_Fold(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
 	{
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 

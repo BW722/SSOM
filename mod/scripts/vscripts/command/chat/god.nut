@@ -12,7 +12,7 @@ void function ServerChatCommand_God(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -40,12 +40,12 @@ void function ServerChatCommand_God(entity player, array<string> args)
             continue
         if( !target.IsInvulnerable() ){
             target.SetInvulnerable()
-            SSOM_ChatServerPrivateMessage(player, "已设置玩家" + target.GetPlayerName() + "为无敌状态！！！")
+            SSOM_ChatServerPrivateMessage(player, "已设置玩家" + target.GetPlayerName() + "为无敌状态")
         }
         else
         {
             target.ClearInvulnerable()
-            SSOM_ChatServerPrivateMessage(player, "已取消玩家" + target.GetPlayerName() + "的无敌状态！！！")
+            SSOM_ChatServerPrivateMessage(player, "已取消玩家" + target.GetPlayerName() + "的无敌状态")
         }
     }
 }

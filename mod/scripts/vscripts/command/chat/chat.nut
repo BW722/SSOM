@@ -13,7 +13,7 @@ void function ServerChatCommand_Chat(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -24,12 +24,12 @@ void function ServerChatCommand_Chat(entity player, array<string> args)
         if( SSOM_IsAffirmative(arg0) && !currentlyEnabled )
         {
             SSOM_SetChatEnabled(true)
-            SSOM_ChatServerBroadcast( "已开启聊天！！！" )
+            SSOM_ChatServerBroadcast( "已开启聊天" )
         }
         else if( !SSOM_IsAffirmative(arg0) && currentlyEnabled )
         {
             SSOM_SetChatEnabled(false)
-            SSOM_ChatServerBroadcast( "已关闭聊天！！！" )
+            SSOM_ChatServerBroadcast( "已关闭聊天" )
         }
     }
     else
@@ -49,7 +49,7 @@ ClServer_MessageStruct function OnReceivedSayTextMessage(ClServer_MessageStruct 
     if(!SSOM_IsChatEnabled())
     {
         message.shouldBlock = true
-        SSOM_ChatServerPrivateMessage(player, "聊天已关闭(仅管理员可发言)！！！")
+        SSOM_ChatServerPrivateMessage(player, "聊天已关闭(仅管理员可发言)")
     }
     return message
 }

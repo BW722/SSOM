@@ -1,17 +1,17 @@
 {
 	"Name": "SSOM",
 	"Description": "Fuck Respawn Entertainment",
-	"Version": "1.0.0",
-	"LoadPriority": 4,
+	"Version": "1.0.1-Dev",
+	"LoadPriority": 1,
 	"ConVars": [
 		{
 			//管理员 UID
-			"Name": "SSOM_AdminUID",
+			"Name": "SSOM_AdminUIDs",
 			"DefaultValue": ""
 		},
 		{
 			//外挂 UID
-			"Name": "SSOM_HackUID",
+			"Name": "SSOM_HackUIDs",
 			"DefaultValue": ""
 		},
 		{
@@ -38,7 +38,7 @@
 	"Scripts": [
 		{
 			"Path": "SSOM.nut",
-			"RunOn": "SERVER && MP",
+			"RunOn": "MP",
 			"ServerCallback": {
 				"After": "SSOM_Init"
 			}

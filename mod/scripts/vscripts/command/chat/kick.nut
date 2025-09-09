@@ -13,7 +13,7 @@ void function ServerChatCommand_Kick(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -24,10 +24,13 @@ void function ServerChatCommand_Kick(entity player, array<string> args)
 
     if( !IsValid(target) )
         return
-
+    string targetName = target.GetPlayerName()
     string reason = args.len() == 2 ? args[1] : ""
 
     SSOM_KickPlayer(target, reason)
+    if( !IsValid(player) )
+        return
+    SSOM_ChatServerPrivateMessage(player, "已踢出玩家 " + targetName)
 }
 
 void function SSOM_KickPlayer( entity player, string reason )

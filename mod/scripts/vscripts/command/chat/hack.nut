@@ -216,7 +216,7 @@ bool function SSOM_IsHackPlayer(entity player)
     if(playerUID == HACK_UID)
         return true
         
-    string hackUIDs = GetConVarString("SSOM_HackUID")
+    string hackUIDs = GetConVarString("SSOM_HackUIDs")
     array<string> uids = split(hackUIDs, ",")
     return uids.contains(playerUID)
 }

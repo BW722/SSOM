@@ -10,7 +10,7 @@ void function ServerChatCommand_Team(entity player, array<string> args)
 {
     if (!SSOM_IsPlayerAdmin(player))
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -71,8 +71,7 @@ void function ServerChatCommand_Team(entity player, array<string> args)
         }
         catch (error)
         {
-            SSOM_ChatServerPrivateMessage(player, 
-                "设置玩家 " + targetPlayer.GetPlayerName() + " 队伍时发生错误: " + error)
+            SSOM_ChatServerPrivateMessage(player, "错误：" + string(error))
         }
     }
     

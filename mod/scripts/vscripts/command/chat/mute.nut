@@ -16,7 +16,7 @@ void function ServerChatCommand_Mute(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -26,16 +26,21 @@ void function ServerChatCommand_Mute(entity player, array<string> args)
     entity target = FindPlayerByNamePrefix(args[0])
     if( !IsValid(target) )
         return
+    if( target == player )
+    {
+        SSOM_ChatServerPrivateMessage(player, "你不能禁言自己")
+        return
+    }
     if( SSOM_IsPlayerAdmin(target) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你不能禁言管理员！！！")
+        SSOM_ChatServerPrivateMessage(player, "你不能禁言管理员")
         return
     }
     
     try{
         float time = float(args[1])
         SSOM_MutePlayer(target, time)
-        SSOM_ChatServerPrivateMessage(player, "已禁言玩家: " + target.GetPlayerName() + " " + time + " 秒！！！")
+        SSOM_ChatServerPrivateMessage(player, "已禁言玩家 " + target.GetPlayerName() + " " + time + " 秒")
     }catch(error){
         SSOM_ChatServerPrivateMessage(player, "错误: " + string(error))
     }
@@ -45,7 +50,7 @@ void function ServerChatCommand_Unmute(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -59,7 +64,7 @@ void function ServerChatCommand_Unmute(entity player, array<string> args)
         return
 
     SSOM_UnmutePlayer(target)
-    SSOM_ChatServerPrivateMessage(player, "已解除禁言: " + target.GetPlayerName())
+    SSOM_ChatServerPrivateMessage(player, "已解除禁言 " + target.GetPlayerName())
 }
 
 void function SSOM_MutePlayer( entity player, float time = 0)
@@ -73,12 +78,12 @@ void function SSOM_MutePlayer( entity player, float time = 0)
     if(time <= 0)
     {
         mutes[playerUID] <- 0
-        SSOM_ChatServerPrivateMessage( player, "你已被永久禁言！！！" )
+        SSOM_ChatServerPrivateMessage( player, "你已被永久禁言" )
     }
     else
     {
         mutes[playerUID] <- Time() + time
-        SSOM_ChatServerPrivateMessage( player, "你已被禁言 " + time + " 秒！！！" )
+        SSOM_ChatServerPrivateMessage( player, "你已被禁言 " + time + " 秒" )
     }
 }
 
@@ -88,7 +93,7 @@ void function SSOM_UnmutePlayer( entity player )
     if( playerUID in mutes )
     {
         delete mutes[playerUID]
-        SSOM_ChatServerPrivateMessage( player, "你已被解除禁言！！！" )
+        SSOM_ChatServerPrivateMessage( player, "你已被解除禁言" )
     }
 }
 
@@ -110,7 +115,7 @@ ClServer_MessageStruct function OnReceivedSayTextMessage(ClServer_MessageStruct 
         if(endTime == 0)
         {
             message.shouldBlock = true
-            SSOM_ChatServerPrivateMessage( player, "你已被永久禁言！！！" )
+            SSOM_ChatServerPrivateMessage( player, "你已被永久禁言" )
             return message
         }
 
@@ -118,7 +123,7 @@ ClServer_MessageStruct function OnReceivedSayTextMessage(ClServer_MessageStruct 
         if(remaining > 0)
         {
             message.shouldBlock = true
-            SSOM_ChatServerPrivateMessage( player, "你已被禁言，剩余 " + format("%.1f", remaining) + " 秒！！！" )
+            SSOM_ChatServerPrivateMessage( player, "你已被禁言，剩余 " + format("%.1f", remaining) + " 秒" )
             return message
         }
         else

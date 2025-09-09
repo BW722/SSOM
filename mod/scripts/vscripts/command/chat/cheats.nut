@@ -11,7 +11,7 @@ void function ServerChatCommand_Cheats(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -30,7 +30,7 @@ void function ServerChatCommand_Cheats(entity player, array<string> args)
         SSOM_SetCheatsEnabled(false)
     }
     string message = SSOM_IsCheatsEnabled() ? "开启" : "关闭"
-    SSOM_ChatServerPrivateMessage( player, "已" + message + "作弊！！！" )
+    SSOM_ChatServerPrivateMessage( player, "已" + message + "作弊" )
 }
 
 void function SSOM_SetCheatsEnabled(bool enabled)

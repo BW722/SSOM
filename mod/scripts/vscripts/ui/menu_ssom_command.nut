@@ -22,6 +22,8 @@ void function Menu_SSOMCommand_Init()
 	AddMenu( "SSOMCommand", $"resource/ui/menus/ssom_command.menu" )
 	var menu = GetMenu( "SSOMCommand" )
 
+	//RuiSetString( menu, "labelText", "SSOM COMMAND " + "v" + SSOM_GetVersion() )
+
 	file.buttons = GetElementsByClassname( menu, "DevButtonClass" )
 	foreach( button in file.buttons )
 	{
@@ -66,11 +68,6 @@ void function SetupDefaultCommands()
 	SetupCommand("Skip", "say /skip")
 
 	SetupCommand("Balance", "say /balance")
-
-	SetupCommand("Status hp on", "say /status hp on")
-	SetupCommand("Status hp off", "say /status hp off")
-	SetupCommand("Status kill on", "say /status kill on")
-	SetupCommand("Status kill off", "say /status kill off")
 
     SetupCommand("Kill All Boss", "say /kill_all_boss")
     SetupCommand("CreateBoss ash", "say /create_boss ash")

@@ -14,7 +14,7 @@ void function ServerChatCommand_Ban(entity player, array<string> args)
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
@@ -26,14 +26,17 @@ void function ServerChatCommand_Ban(entity player, array<string> args)
     entity target = FindPlayerByNamePrefix(arg0)
     if( !IsValid(target) )
     {
-        SSOM_ChatServerPrivateMessage( player, "未找到玩家: " + arg0 )
+        SSOM_ChatServerPrivateMessage( player, "未找到玩家 " + arg0 )
         return
     }
     
+    string targetName = target.GetPlayerName()
     string targetUID = GetPlayerUID(target)
     
     SSOM_BanPlayer( target )
-    SSOM_ChatServerPrivateMessage(player, "已封禁玩家: " + target.GetPlayerName())
+    if( !IsValid(player) )
+        return
+    SSOM_ChatServerPrivateMessage(player, "已封禁玩家" + targetName)
 }
 
 void function ServerChatCommand_Unban(entity player, array<string> args)
@@ -52,12 +55,12 @@ void function ServerChatCommand_Unban(entity player, array<string> args)
     entity target = FindPlayerByNamePrefix(arg0)
     if( !IsValid(target) )
     {
-        SSOM_ChatServerPrivateMessage( player, "未找到玩家: " + arg0 )
+        SSOM_ChatServerPrivateMessage( player, "未找到玩家 " + arg0 )
         return
     }
     
     SSOM_UnbanPlayer( target )
-    SSOM_ChatServerPrivateMessage(player, "已解封玩家: " + target.GetPlayerName())
+    SSOM_ChatServerPrivateMessage(player, "已解封玩家 " + target.GetPlayerName())
 }
 
 void function SSOM_BanPlayer( entity player )

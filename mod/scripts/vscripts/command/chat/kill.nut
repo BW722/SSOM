@@ -13,14 +13,17 @@ void function ServerChatCommand_Kill(entity player, array<string> args)
 {
     if(!SSOM_IsPlayerAdmin(player))
     {
-        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！！！")
+        SSOM_ChatServerPrivateMessage(player, "你没有管理员权限")
         return
     }
 
     if(args.len() == 0)
     {
         if(IsAlive(player))
+        {
             player.Die()
+            SSOM_ChatServerPrivateMessage(player, "已杀死玩家 " + player.GetPlayerName())
+        }
         return
     }
 
@@ -58,7 +61,7 @@ void function ServerChatCommand_Kill(entity player, array<string> args)
         }
         
         targetPlayer.Die()
-        SSOM_ChatServerPrivateMessage(player, "已杀死玩家: " + targetPlayer.GetPlayerName())
+        SSOM_ChatServerPrivateMessage(player, "已杀死玩家 " + targetPlayer.GetPlayerName())
     }
 }
 

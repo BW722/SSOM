@@ -48,7 +48,7 @@ void function AntiAFKMonitor( entity player )
             
             if( afkTime >= AFK_WARN_TIME / 2 )
             {
-                SSOM_ChatServerPrivateMessage( player, "警告：检测到挂机行为，请移动以避免被踢出！！！" )
+                SSOM_ChatServerPrivateMessage( player, "警告：检测到挂机行为，请移动以避免被踢出" )
                 warned = true
             }
             
@@ -70,7 +70,7 @@ void function ServerChatCommand_AntiAFK( entity player, array<string> args )
 {
     if( !SSOM_IsPlayerAdmin( player ) )
     {
-        SSOM_ChatServerPrivateMessage( player, "你没有管理员权限！！！" )
+        SSOM_ChatServerPrivateMessage( player, "你没有管理员权限" )
         return
     }
     
@@ -86,7 +86,7 @@ void function ServerChatCommand_AntiAFK( entity player, array<string> args )
     SSOM_SetAntiAFKEnabled( newStatus )
     
     string statusMessage = newStatus ? "开启" : "关闭"
-    SSOM_ChatServerBroadcast( "已" + statusMessage + "反挂机！！！" )
+    SSOM_ChatServerBroadcast( "已" + statusMessage + "反挂机" )
 }
 
 void function SSOM_SetAntiAFKEnabled( bool enabled )
