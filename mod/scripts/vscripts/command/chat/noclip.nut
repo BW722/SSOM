@@ -31,7 +31,7 @@ void function ServerChatCommand_Noclip(entity player, array<string> args) {
         }
         else
         {
-            targets.append(FindPlayerByNamePrefix(args[0]))
+            targets.append(GetPlayerByNamePrefix(args[0]))
         }
     }
 

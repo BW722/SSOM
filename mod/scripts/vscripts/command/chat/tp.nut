@@ -29,7 +29,7 @@ void function ServerChatCommand_Tp(entity adminPlayer, array<string> args)
     }
     else
     {
-        teleportPlayers = FindPlayersByNamePrefix(subjectName)
+        teleportPlayers = GetPlayersByNamePrefix(subjectName)
         if(teleportPlayers.len() == 0)
         {
             SSOM_ChatServerPrivateMessage(adminPlayer, "未找到玩家 " + subjectName)
@@ -37,7 +37,7 @@ void function ServerChatCommand_Tp(entity adminPlayer, array<string> args)
         }
     }
        
-    entity targetPlayer = FindPlayerByNamePrefix(targetName)
+    entity targetPlayer = GetPlayerByNamePrefix(targetName)
     if(!IsValid(targetPlayer) && !IsAlive(targetPlayer))
     {
         SSOM_ChatServerPrivateMessage(adminPlayer, "未找到玩家 " + targetName)

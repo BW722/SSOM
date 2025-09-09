@@ -20,7 +20,7 @@ void function ServerChatCommand_Kick(entity player, array<string> args)
     if(args.len() < 1 || args.len() > 2)
         return
 
-    entity target = FindPlayerByNamePrefix(args[0])
+    entity target = GetPlayerByNamePrefix(args[0])
 
     if( !IsValid(target) )
         return

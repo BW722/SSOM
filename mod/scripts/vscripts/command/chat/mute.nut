@@ -23,7 +23,7 @@ void function ServerChatCommand_Mute(entity player, array<string> args)
     if(args.len() != 2)
         return
     
-    entity target = FindPlayerByNamePrefix(args[0])
+    entity target = GetPlayerByNamePrefix(args[0])
     if( !IsValid(target) )
         return
     if( target == player )
@@ -57,7 +57,7 @@ void function ServerChatCommand_Unmute(entity player, array<string> args)
     if(args.len() != 1)
         return
     
-    entity target = FindPlayerByNamePrefix(args[0])
+    entity target = GetPlayerByNamePrefix(args[0])
     if( !IsValid(target) )
         return
     if( !(GetPlayerUID(target) in mutes) )

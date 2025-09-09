@@ -12,8 +12,8 @@ global function GetAllPlayers
 global function GetPlayerByName
 global function IsValidPlayerName
 global function GetBotArray
-global function FindPlayerByNamePrefix
-global function FindPlayersByNamePrefix
+global function GetPlayerByNamePrefix
+global function GetPlayersByNamePrefix
 global function hasNonDigit
 global function isdigit
 
@@ -98,7 +98,7 @@ array<entity> function GetBotArray()
     return bots
 }
 
-entity function FindPlayerByNamePrefix(string namePrefix)
+entity function GetPlayerByNamePrefix(string namePrefix)
 {
     string searchTerm = namePrefix.tolower()
     
@@ -115,7 +115,7 @@ entity function FindPlayerByNamePrefix(string namePrefix)
     return null
 }
 
-array<entity> function FindPlayersByNamePrefix(string namePrefix)
+array<entity> function GetPlayersByNamePrefix(string namePrefix)
 {
     array<entity> matchingPlayers = []
     string searchTerm = namePrefix.tolower()

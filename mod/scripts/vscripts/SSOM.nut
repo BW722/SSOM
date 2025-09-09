@@ -64,7 +64,7 @@ array<entity> function SSOM_GetTargetPlayers(entity player, array<string> args)
         }
         else
         {
-            entity targetPlayer = FindPlayerByNamePrefix(args[0])
+            entity targetPlayer = GetPlayerByNamePrefix(args[0])
             if(IsValid(targetPlayer))
                 targets.append(targetPlayer)
         }

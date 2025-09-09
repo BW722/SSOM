@@ -30,7 +30,7 @@ void function ServerChatCommand_God(entity player, array<string> args)
         }
         else
         {
-            targets.append(FindPlayerByNamePrefix(args[0]))
+            targets.append(GetPlayerByNamePrefix(args[0]))
         }
     }
     
