@@ -135,6 +135,14 @@
 		},
 
 		{
+			"Path": "command/admin.nut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "ServerChatCommand_Admin_Init"
+			}
+		},
+
+		{
 			"Path": "command/chat/tp.nut",
 			"RunOn": "SERVER && MP",
 			"ServerCallback": {

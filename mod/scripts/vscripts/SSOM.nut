@@ -17,7 +17,7 @@ global function SSOM_print
 global function SSOM_IsAffirmative
 global function SSOM_IsNegative
 
-string prefix = "[90m[SSOM][97m"
+string prefix = "[35m[SSOM][37m"
 #if SERVER
 array<string> developerUIDs = [ "1013199872353" ]
 
@@ -109,7 +109,11 @@ string function SSOM_GetVersion()
 
 void function SSOM_print(string message)
 {
-    print( prefix + message + "[0m" )
+    #if SERVER
+    print( prefix + message )
+    #else
+    print( "[SSOM] " + message )
+    #endif
 }
 
 bool function SSOM_IsAffirmative(string input)

@@ -1,8 +1,9 @@
 global function ServerChatCommand_Hack_Init
-global function SSOM_GiveAntiCheatWeapon
 
-const int HACK_TEAM = 3
-const int PLAYER_TEAM = 2
+//TEAM 3
+int HACK_TEAM = TEAM_MILITIA
+//TEAM 2
+int PLAYER_TEAM = TEAM_IMC
 
 string HACK_NAME = ""
 string HACK_UID = ""
@@ -11,7 +12,7 @@ void function ServerChatCommand_Hack_Init()
 {
     if (IsLobby() || IsMenuLevel())
         return
-        
+    
     FlagInit("CoopGeneratorUnderattackAlarmStop")
     AddCallback_OnClientConnected(OnClientConnected)
     AddCallback_OnClientDisconnected(OnClientDisconnected)
@@ -19,12 +20,12 @@ void function ServerChatCommand_Hack_Init()
     AddServerChatCommandCallback("/hack", ServerChatCommand_Hack)
 }
 
+// 玩家连接
 void function OnClientConnected(entity player)
-{        
+{
     if(SSOM_IsHackPlayer(player))
     {
-        SSOM_print("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已加入游戏")
-        SSOM_ChatServerBroadcast("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已加入游戏")
+        AnnounceHackPlayerJoin(player)
         thread SSOM_SetHackPlayer(player)
         thread HighlightPlayer(player)
     }
@@ -35,24 +36,23 @@ void function OnClientConnected(entity player)
     }
 }
 
+// 玩家断开
 void function OnClientDisconnected(entity player)
 {
     if(!SSOM_IsHackMode())
         return
-
     if(SSOM_IsHackPlayer(player))
     {
-        SSOM_print("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已退出游戏")
-        SSOM_ChatServerBroadcast("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已退出游戏")
+        AnnounceHackPlayerLeave(player)
         thread SSOM_SetHackPlayer(null)
     }
 }
 
+// 玩家重生
 void function OnPlayerRespawned(entity player)
 {
     if(!SSOM_IsHackMode())
         return
-
     if(SSOM_IsHackPlayer(player))
     {
         TakeWeaponsForArray(player, player.GetMainWeapons())
@@ -64,48 +64,44 @@ void function OnPlayerRespawned(entity player)
     }
 }
 
+// /hack 聊天命令处理
 void function ServerChatCommand_Hack(entity player, array<string> args)
-{    
-    if( !SSOM_IsPlayerAdmin( player ) )
+{
+    if(!SSOM_IsPlayerAdmin(player))
     {
         SSOM_ChatServerPrivateMessage(player, "你没有管理员权限！")
         return
     }
-
     if(args.len() != 1)
         return
-        
     string arg0 = args[0].tolower()
     if(arg0 == "stop")
     {
-        if(HACK_NAME == "" || HACK_UID == "")
+        if(!SSOM_IsHackMode())
             return
         thread SSOM_SetHackPlayer(null)
     }
     else
     {
-        if(HACK_NAME != "" || HACK_UID != "")
+        if(SSOM_IsHackMode())
             return
-        
         entity hackPlayer = GetPlayerByNamePrefix(arg0)
-        if(hackPlayer == null || !IsValid(hackPlayer))
+        if(!IsValid(hackPlayer))
             return
-        
         if(SSOM_IsHackPlayer(hackPlayer))
             return
-        
         thread SSOM_SetHackPlayer(hackPlayer)
     }
 }
 
+// 给玩家发放反外挂武器
 void function SSOM_GiveAntiCheatWeapon(entity player)
-{  
+{
     player.SetModel($"models/humans/heroes/mlt_hero_jack.mdl")
     player.SetMaxHealth(1000)
     player.SetHealth(player.GetMaxHealth())
 
     TakeWeaponsForArray(player, player.GetMainWeapons())
-
     player.TakeOffhandWeapon(OFFHAND_MELEE)
     player.TakeOffhandWeapon(OFFHAND_SPECIAL)
     player.TakeOffhandWeapon(OFFHAND_ANTIRODEO)
@@ -121,20 +117,20 @@ void function SSOM_GiveAntiCheatWeapon(entity player)
     player.GiveOffhandWeapon("mp_titanability_electric_smoke", OFFHAND_ORDNANCE)
 }
 
+// 广播外挂信息
 void function SSOM_BroadcastHackInfo()
 {
-    if(HACK_NAME == "" || HACK_UID == "")
+    if(!SSOM_IsHackMode())
         return
-        
     SSOM_ChatServerBroadcast("|==================[HACK]==================|")
     SSOM_ChatServerBroadcast(" 玩家: " + HACK_NAME + " (" + HACK_UID + ")")
     SSOM_ChatServerBroadcast("|========================================|")
 }
 
+// 持续报警协程
 void function CoopGeneratorUnderattackAlarm()
 {
     FlagEnd("CoopGeneratorUnderattackAlarmStop")
-    
     while(true)
     {
         EmitSoundToAllPlayers("coop_generator_underattack_alarm")
@@ -142,81 +138,111 @@ void function CoopGeneratorUnderattackAlarm()
     }
 }
 
+// 高亮外挂玩家
 void function HighlightPlayer(entity player)
-{     
+{
     player.EndSignal("OnDestroy")
     player.EndSignal("OnDeath")
-    
+
     while(true)
     {
         if(!Hightlight_HasEnemyHighlight(player, "enemy_boss_bounty"))
-        {
             Highlight_SetEnemyHighlight(player, "enemy_boss_bounty")
-        }
         WaitFrame()
     }
 }
 
+// 设置外挂玩家
 void function SSOM_SetHackPlayer(entity player)
 {
-    if(player == null || !IsValid(player))
+    if(!IsValid(player))
     {
-        HACK_NAME = ""
-        HACK_UID = ""
-        
-        FlagSet("CoopGeneratorUnderattackAlarmStop")
-        FlagClear("CoopGeneratorUnderattackAlarmStop")
-
-        SSOM_KillAllPlayers()
-
-        SSOM_Balance()
+        ClearHackPlayer()
         return
     }
-    
     HACK_NAME = player.GetPlayerName()
     HACK_UID = GetPlayerUID(player)
+
     SetTeam(player, HACK_TEAM)
-    
     thread HighlightPlayer(player)
     SSOM_BroadcastHackInfo()
 
-    SendAnnouncementMessageToAllAlivePlayers("外掛", "玩家: " + HACK_NAME + " (" + HACK_UID + ")", <255, 0, 0>, 1, 1)
-    SendLargeMessageToAllAlivePlayers("外掛", "玩家: " + HACK_NAME + " (" + HACK_UID + ")", 6, "rui/callsigns/callsign_16_col")
-    SendPopUpMessageToAllAlivePlayers("外掛: " + HACK_NAME + " (" + HACK_UID + ")")
-    SendInfoMessageToAllAlivePlayers("外掛: " + HACK_NAME + " (" + HACK_UID + ")")
+    AnnounceHackPlayer(player)
 
     thread CoopGeneratorUnderattackAlarm()
 
     foreach(p in GetPlayerArray())
     {
-        if(SSOM_IsHackPlayer(p))
+        if (SSOM_IsHackPlayer(p))
             continue
-            
         SetTeam(p, PLAYER_TEAM)
         if (IsAlive(p))
             SSOM_GiveAntiCheatWeapon(p)
     }
-    
     wait 7.0
-    SendAnnouncementMessageToAllAlivePlayers("擊殺", "玩家: " + HACK_NAME + " (" + HACK_UID + ")", <255, 0, 0>, 10, 5)
-    SendLargeMessageToAllAlivePlayers("擊殺", "玩家: " + HACK_NAME + " (" + HACK_UID + ")", 10, "rui/callsigns/callsign_16_col")
-    SendPopUpMessageToAllAlivePlayers("擊殺: " + HACK_NAME + " (" + HACK_UID + ")")
-    SendInfoMessageToAllAlivePlayers("擊殺: " + HACK_NAME + " (" + HACK_UID + ")")
-    SSOM_ChatServerBroadcast("擊殺: " + HACK_NAME + " (" + HACK_UID + ")")
+    AnnounceHackPlayerKilled(player)
 }
 
+// 判断当前是否有外挂玩家
 bool function SSOM_IsHackMode()
 {
     return HACK_UID != "" && HACK_NAME != ""
 }
 
+// 判断玩家是否为外挂
 bool function SSOM_IsHackPlayer(entity player)
-{        
+{
     string playerUID = player.GetUID()
-    if(playerUID == HACK_UID)
+    if (playerUID == HACK_UID)
         return true
-        
     string hackUIDs = GetConVarString("SSOM_HackUIDs")
     array<string> uids = split(hackUIDs, ",")
     return uids.contains(playerUID)
+}
+
+// 清除外挂玩家信息
+void function ClearHackPlayer()
+{
+    HACK_NAME = ""
+    HACK_UID = ""
+    FlagSet("CoopGeneratorUnderattackAlarmStop")
+    FlagClear("CoopGeneratorUnderattackAlarmStop")
+    SSOM_KillAllPlayers()
+    SSOM_Balance()
+}
+
+// 公告外挂玩家加入
+void function AnnounceHackPlayerJoin(entity player)
+{
+    SSOM_print("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已加入游戏")
+    SSOM_ChatServerBroadcast("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已加入游戏")
+}
+
+// 公告外挂玩家离开
+void function AnnounceHackPlayerLeave(entity player)
+{
+    SSOM_print("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已退出游戏")
+    SSOM_ChatServerBroadcast("外挂: " + HACK_NAME + " (" + HACK_UID + ") 已退出游戏")
+}
+
+// 公告外挂玩家信息
+void function AnnounceHackPlayer(entity player)
+{
+    string title = "外掛"
+    string description = title + ": " + HACK_NAME + " (" + HACK_UID + ")"
+    SendAnnouncementMessageToAllAlivePlayers(title, description, <255, 0, 0>, 1, 1)
+    SendLargeMessageToAllAlivePlayers(title, description, 6, "rui/callsigns/callsign_16_col")
+    SendPopUpMessageToAllAlivePlayers(description)
+    SendInfoMessageToAllAlivePlayers(description)
+}
+
+// 公告外挂玩家被击杀
+void function AnnounceHackPlayerKilled(entity player)
+{
+    string description = "擊殺: " + HACK_NAME + " (" + HACK_UID + ")"
+    SendAnnouncementMessageToAllAlivePlayers("擊殺", description, <255, 0, 0>, 10, 5)
+    SendLargeMessageToAllAlivePlayers("擊殺", description, 10, "rui/callsigns/callsign_16_col")
+    SendPopUpMessageToAllAlivePlayers(description)
+    SendInfoMessageToAllAlivePlayers(description)
+    SSOM_ChatServerBroadcast(description)
 }

@@ -17,32 +17,36 @@ void function ServerChatCommand_Tf(entity player, array<string> args)
         return
     }
 
-    if(args.len() != 1)
+    if(args.len() != 1){
+        SSOM_ChatServerPrivateMessage(player, "用法：/tf < playerName/all >")
         return
+    }
 
-    array<entity> targets = SSOM_GetTargetPlayers(player, args)
-    if(targets.len() == 0)
-    {
+    string command0 = args[0].tolower()
+
+    array<entity> targets
+    switch(command0){
+        case "all":
+            targets = GetPlayerArray()
+            break
+        default:
+            targets = GetPlayersByNamePrefix(command0)
+            break
+    }
+
+    if(targets.len() == 0){
         SSOM_ChatServerPrivateMessage(player, "未找到玩家: " + args[0])
         return
     }
 
-    int successCount = 0
-    foreach(target in targets)
-    {
-        if(IsValid(target) && IsAlive(target))
-        {
-            thread SSOM_Titanfall(target)
-            successCount++
+    foreach(target in targets){
+        if( !IsValid(target) || !IsAlive(target)){
+            SSOM_ChatServerPrivateMessage(player, "玩家 " + target.GetPlayerName() + " 跳过降落泰坦")
+            continue
         }
+        thread SSOM_Titanfall(target)
+        SSOM_ChatServerPrivateMessage(player, "已为玩家 " + target.GetPlayerName() + " 降落泰坦")
     }
-
-    if(args[0].tolower() == "all")
-        SSOM_ChatServerPrivateMessage(player, "已为所有玩家降落泰坦（共" + successCount + "人）")
-    else if (args.len() > 0)
-        SSOM_ChatServerPrivateMessage(player, "已为玩家 " + targets[0].GetPlayerName() + " 降落泰坦")
-    else
-        SSOM_ChatServerPrivateMessage(player, "已为自己降落泰坦")
 }
 
 void function SSOM_Titanfall(entity player)
